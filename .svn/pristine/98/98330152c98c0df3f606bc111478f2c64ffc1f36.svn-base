@@ -1,0 +1,84 @@
+package br.com.cron.util;
+import java.util.Scanner;
+import java.util.Calendar;
+import java.util.Date;
+
+public class Menu_Util {
+	public static void Menu_1(){
+		Scanner scanner = new Scanner(System.in);
+		Calendar calendar = Calendar.getInstance();
+		System.out.println(calendar);
+		System.out.println("Digite o dia da semana \n");
+		String diaDaSemana = scanner.nextLine().trim().toLowerCase();
+		scanner.nextLine();
+		int diaConvertido = DayConvert(diaDaSemana);
+		
+		if(diaConvertido != -1){
+			
+			System.out.println("Digite o horario");
+			System.out.println("Hora: ");
+			int hora = scanner.nextInt();
+			System.out.println("Minute: ");
+			int minuto = scanner.nextInt();
+			
+			//Adicionando os atributos no calendario
+			calendar.set(Calendar.HOUR, hora);
+			calendar.set(Calendar.MINUTE, minuto);
+			calendar.set(Calendar.SECOND, 0);
+			calendar.set(Calendar.MILLISECOND, 0);
+			calendar.set(Calendar.DAY_OF_WEEK, diaConvertido);
+			
+			
+			
+			
+			
+			
+			
+			
+			
+			
+		}
+		
+		
+		
+		
+		
+		
+		
+		scanner.close();
+	}
+		
+	
+	
+	
+	
+	public static int DayConvert(String a){
+		switch (a){
+		case "domingo":
+			return 1;
+			
+		case "segunda":
+			return 2;
+		
+		case "terca":
+			return 3;
+		
+		case "quarta":
+			return 4;
+			
+		case "quinta":
+			return 5;
+			
+		case "sexta":
+			return 6;
+			
+		case "sabado":
+			return 7;
+			
+		default:
+			System.out.println("Data digitada incorretamente");
+			return -1;
+		}
+
+	}
+}

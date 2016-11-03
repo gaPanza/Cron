@@ -1,0 +1,89 @@
+package br.com.cron.util;
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
+public class Tarefa_DAO {
+	private static Tarefa_DAO instance;
+	protected static EntityManager entityManager;
+	
+	public static Tarefa_DAO getInstance(){
+		if(instance == null){
+			instance = new Tarefa_DAO();
+		}
+		return instance;
+	}
+	
+	private Tarefa_DAO(){
+		entityManager = getEntityManager();
+	}
+	
+	//Cria o Manager
+	protected EntityManager getEntityManager(){
+		EntityManagerFactory factory = Persistence.createEntityManagerFactory("CRUD");
+		return factory.createEntityManager();
+	}
+	
+	//Retorna a tarefa pela ID
+	public Tarefa getById(final int id){
+		return entityManager.find(Tarefa.class, id);
+		
+	}
+	//Cria uma Query no banco
+	@SuppressWarnings("unchecked")
+	public List<Tarefa> findAll(){
+		return entityManager.createQuery("FROM " + Tarefa.class.getName()).getResultList();
+	}
+	
+	//Insere um registro no banco
+	public void persist(Tarefa tarefa){
+		try{
+			entityManager.getTransaction().begin();
+			entityManager.persist(tarefa);
+			entityManager.getTransaction().commit();
+		}catch (Exception e){
+			e.printStackTrace();
+			entityManager.getTransaction().rollback();
+		
+		}
+	}
+	
+	//Insere e atualiza um registro no banco
+	public void merge(Tarefa tarefa){
+		try{
+			entityManager.getTransaction().begin();
+			entityManager.merge(tarefa);
+			entityManager.getTransaction().commit();
+			
+		}catch(Exception e){
+			e.printStackTrace();
+			entityManager.getTransaction().rollback();
+		}
+	}
+	
+	//Remove uma Tarefa do Banco (recebendo o objeto)
+	public void remove(Tarefa tarefa){
+		try{
+			entityManager.getTransaction().begin();
+			entityManager.remove(tarefa);
+			entityManager.getTransaction().commit();	
+		} catch (Exception e){
+			e.printStackTrace();
+			entityManager.getTransaction().rollback();
+		}
+	}
+	
+	//Remove uma Tarefa do Banco (recebendo uma ID)
+	public void removeById(final int id){
+		try{
+			Tarefa tarefa = getById(id);
+			remove(tarefa);
+		} catch(Exception e){
+			e.printStackTrace();
+		}
+	}
+	
+	
+}

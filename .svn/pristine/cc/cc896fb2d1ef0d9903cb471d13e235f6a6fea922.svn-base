@@ -1,0 +1,83 @@
+package Cron;
+
+import java.util.*;
+import java.util.List;
+
+public class Builder {
+
+	public static void main(String[] args) {
+		Scanner scanner = new Scanner(System.in);
+		int iterator = 0;
+		// Menu Básico
+		System.out.println("      -- Menu --");
+		System.out.println("1- Visualizar Tarefas");
+		System.out.println("2- Adicionar  Tarefas");
+		System.out.println("3- Remover    Tarefas");
+		System.out.println("4- Fechar   Agendador");
+
+		iterator = scanner.nextInt();
+		switch (iterator) {
+		case 1:
+			scanner.nextLine();
+			consultar();
+			break;
+		case 2:
+			scanner.nextLine();
+			Builder.adicionar();
+			break;
+		case 3:
+			scanner.nextLine();
+			Builder.remover();
+			break;
+		case 4:
+			scanner.nextLine();
+			System.out.println("Obrigado por utilizar o programa!");
+			break;
+		default:
+			System.out.println("Opção inválida");
+		}
+		scanner.close();
+	}
+
+	public static void adicionar() {
+		Scanner scanner = new Scanner(System.in);
+		Tarefa tarefa = new Tarefa();
+		GregorianCalendar gc = new GregorianCalendar();
+
+		System.out.println("Entre com os dados da Tarefa");
+
+		System.out.println("Descricao: ");
+		tarefa.setDescricao(scanner.nextLine());
+
+		tarefa.setDataCriacao(gc.getTime());
+
+		System.out.println("Email: ");
+		tarefa.setEmail(scanner.nextLine());
+
+		Tarefa_DAO.getInstance().merge(tarefa);
+
+		System.out.println("Tarefa adicionada com sucesso.");
+
+		scanner.close();
+
+	}
+
+	public static void consultar() {
+		List<Tarefa> x = Tarefa_DAO.getInstance().findAll();
+
+		for (int i = 0; i < x.size(); i++) {
+			System.out.printf("ID: %d    Desc: %s            Email: %s           Data: %tM\n", x.get(i).getId(),
+					x.get(i).getDescricao(), x.get(i).getEmail(), x.get(i).getDataCriacao());
+		}
+	}
+
+	public static void remover() {
+		Scanner scanner = new Scanner(System.in);
+		consultar();
+		System.out.println("Digite a ID da tarefa a ser removida.");
+		Tarefa_DAO.getInstance().removeById(scanner.nextInt());
+		System.out.println("Tarefa removida com sucesso.");
+		scanner.close();
+	}
+
+}

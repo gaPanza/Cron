@@ -1,0 +1,32 @@
+package br.com.cron.teste;
+
+public class DayConv  {
+	public int DayConvert(String a){
+		switch (a){
+		case "domingo":
+			return 1;
+			
+		case "segunda":
+			return 2;
+		
+		case "terca":
+			return 3;
+		
+		case "quarta":
+			return 4;
+			
+		case "quinta":
+			return 5;
+			
+		case "sexta":
+			return 6;
+			
+		case "sabado":
+			return 7;
+			
+		default:
+			System.out.println("Data digitada incorretamente");
+			return -1;
+		}
+	}
+}

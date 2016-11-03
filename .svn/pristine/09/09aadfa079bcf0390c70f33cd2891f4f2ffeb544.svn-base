@@ -1,0 +1,63 @@
+package Cron;
+
+
+import javax.persistence.*;
+import java.util.Date;
+
+
+@Entity
+@Table(name="tarefa")
+@NamedQuery(name="Tarefa.findAll", query="SELECT t FROM Tarefa t")
+public class Tarefa{
+
+	@Id
+	@GeneratedValue(strategy=GenerationType.AUTO)
+	@Column(unique=true, nullable=false)
+	private int id;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name="data_criacao", nullable=false)
+	private Date dataCriacao;
+
+	@Column(nullable=false, length=255)
+	private String descricao;
+
+	@Column(nullable=false, length=255)
+	private String email;
+
+	public Tarefa(){
+	}	
+
+	public int getId() {
+		return this.id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public Date getDataCriacao() {
+		return this.dataCriacao;
+	}
+
+	public void setDataCriacao(Date dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+
+	public String getDescricao() {
+		return this.descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+}

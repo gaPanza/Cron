@@ -1,0 +1,66 @@
+package Cron;
+
+import java.util.Date;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
+import javax.persistence.Table;
+
+@Entity
+@Table(name = "Tarefa")
+public class Tarefa {
+	
+	@Id
+	@GeneratedValue
+	private int ID;
+	@Column
+	private String nome;
+	@Column
+	private String desc;
+	@Column
+	private Date data_criacao;
+	@Column
+	private String email;
+	@Column
+	private String acao;
+	public int getID() {
+		return ID;
+	}
+	public void setID(int iD) {
+		ID = iD;
+	}
+	public String getNome() {
+		return nome;
+	}
+	public void setNome(String nome) {
+		this.nome = nome;
+	}
+	public String getDesc() {
+		return desc;
+	}
+	public void setDesc(String desc) {
+		this.desc = desc;
+	}
+	public Date getData_criacao() {
+		return data_criacao;
+	}
+	public void setData_criacao(Date data_criacao) {
+		this.data_criacao = data_criacao;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
+	}
+	public String getAcao() {
+		return acao;
+	}
+	public void setAcao(String acao) {
+		this.acao = acao;
+	}
+	
+
+}

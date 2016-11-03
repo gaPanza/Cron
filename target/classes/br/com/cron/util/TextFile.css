@@ -1,0 +1,45 @@
+@CHARSET "ISO-8859-1";
+div {
+    background-image:http://i.imgur.com/6QeJ3a4.png;
+    background-repeat:no-repeat;
+}
+h2 {
+	position: absolute;
+	top: 120px;
+	left: 100;
+	width: 100%;
+	color: black;
+}
+
+h2 span {
+	color: black;
+	font: bold 12px Calibri;
+	letter-spacing: 1px;
+	padding: 10px;
+	padding-right: 7px;
+	padding-left: 10px;
+	text-align: center;
+}
+
+h2 span.spacer {
+	padding: 0 10px;
+}
+
+h3{
+	position: absolute;
+	top: 160px;
+	left: 350px;
+	width: 100%;
+}
+
+h3 span{
+	color: gray;
+	font: 12px/14px Calibri, Times-new-Roman;
+	letter-spacing: -1px;
+	padding: 10px;
+	text-align: justify;
+}
+
+h3 span.italic{
+	font-style: italic;
+}

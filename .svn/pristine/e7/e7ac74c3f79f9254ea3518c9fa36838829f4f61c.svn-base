@@ -1,0 +1,114 @@
+package br.com.cron.util;
+
+import java.io.Serializable;
+import javax.persistence.*;
+import java.util.Date;
+import java.sql.Timestamp;
+
+
+
+@Entity
+@NamedQuery(name="Tarefa.findAll", query="SELECT t FROM Tarefa t")
+public class Tarefa implements Serializable {
+	private static final long serialVersionUID = 1L;
+
+	@Id
+	private Integer id;
+
+	@Column(name="comun_id")
+	private Integer comunId;
+
+	@Column(name="data_")
+	private Timestamp data;
+
+	@Temporal(TemporalType.DATE)
+	@Column(name="data_criacao")
+	private Date dataCriacao;
+
+	private String descricao;
+
+	@Column(name="dia_da_semana")
+	private Timestamp diaDaSemana;
+
+	private String email;
+
+	private Timestamp horario;
+
+	private Object intervalo;
+
+	public Tarefa() {
+	}
+
+	public Integer getId() {
+		return this.id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
+
+	public Integer getComunId() {
+		return this.comunId;
+	}
+
+	public void setComunId(Integer comunId) {
+		this.comunId = comunId;
+	}
+
+	public Timestamp getData() {
+		return this.data;
+	}
+
+	public void setData(Timestamp data) {
+		this.data = data;
+	}
+
+	public Date getDataCriacao() {
+		return this.dataCriacao;
+	}
+
+	public void setDataCriacao(Date dataCriacao) {
+		this.dataCriacao = dataCriacao;
+	}
+
+	public String getDescricao() {
+		return this.descricao;
+	}
+
+	public void setDescricao(String descricao) {
+		this.descricao = descricao;
+	}
+
+	public Timestamp getDiaDaSemana() {
+		return this.diaDaSemana;
+	}
+
+	public void setDiaDaSemana(Timestamp diaDaSemana) {
+		this.diaDaSemana = diaDaSemana;
+	}
+
+	public String getEmail() {
+		return this.email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public Timestamp getHorario() {
+		return this.horario;
+	}
+
+	public void setHorario(Timestamp horario) {
+		this.horario = horario;
+	}
+
+	public Object getIntervalo() {
+		return this.intervalo;
+	}
+
+	public void setIntervalo(Object intervalo) {
+		this.intervalo = intervalo;
+	}
+
+}

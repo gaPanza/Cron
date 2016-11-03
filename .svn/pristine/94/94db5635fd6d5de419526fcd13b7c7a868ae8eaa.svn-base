@@ -1,0 +1,17 @@
+package Cron;
+
+import java.util.Date;
+import javax.annotation.Generated;
+import javax.persistence.metamodel.SingularAttribute;
+import javax.persistence.metamodel.StaticMetamodel;
+
+@Generated(value="Dali", date="2016-08-01T14:08:14.163-0300")
+@StaticMetamodel(Tarefa.class)
+public class Tarefa_ {
+	public static volatile SingularAttribute<Tarefa, Integer> ID;
+	public static volatile SingularAttribute<Tarefa, String> nome;
+	public static volatile SingularAttribute<Tarefa, String> desc;
+	public static volatile SingularAttribute<Tarefa, Date> data_criacao;
+	public static volatile SingularAttribute<Tarefa, String> email;
+	public static volatile SingularAttribute<Tarefa, String> acao;
+}

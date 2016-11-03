@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<persistence xmlns="http://xmlns.jcp.org/xml/ns/persistence"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd"
+	version="2.1">
+
+	<persistence-unit name="CRUD" transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<class>br.com.cron.resources.Tarefa</class>
+		<class>br.com.cron.resources.Usuario</class>
+		<class>br.com.cron.classes.PedidosPluneDTO</class>
+		<class>br.com.cron.resources.Emailspedido</class>
+
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+			<property name="hibernate.connection.driver_class" value="org.postgresql.Driver" />
+			<property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/Cron" />
+			<property name="hibernate.connection.username" value="postgres" />
+			<property name="hibernate.connection.password" value="postgres" />
+			<property name="hibernate.show_sql" value="false" />
+			<property name="hibernate.flushMode" value="FLUSH_AUTO" />
+			<property name="hibernate.hbm2ddl.auto" value="update" />
+			<property name="org.hibernate.jpa.internal.util.LogHelper" value ="OFF"/>
+		</properties>
+	</persistence-unit>
+
+	<persistence-unit name="profarma" transaction-type="RESOURCE_LOCAL">
+		<provider>org.hibernate.ejb.HibernatePersistence</provider>
+		<class>br.com.cron.resources.MyteamsCustomFieldDef</class>
+		<class>br.com.cron.resources.SecurityEntityObject</class>
+		<exclude-unlisted-classes>true</exclude-unlisted-classes>
+		<properties>
+			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
+			<property name="hibernate.connection.driver_class" value="org.postgresql.Driver" />
+			<property name="hibernate.connection.url" value="jdbc:postgresql://profarma-homologacao.coimgpy985kv.us-east-1.rds.amazonaws.com:5432/profarma" />
+			<property name="hibernate.connection.username" value="profarma"/>
+			<property name="hibernate.connection.password" value="dJldULRoqhYLvH8HKM" />
+			<property name="hibernate.show_sql" value="false" />
+			<property name="hibernate.flushMode" value="FLUSH_AUTO" />
+			<property name="hibernate.hbm2ddl.auto" value="validate" />
+		</properties>
+	</persistence-unit>
+</persistence>
