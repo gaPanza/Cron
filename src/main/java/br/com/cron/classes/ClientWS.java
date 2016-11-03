@@ -10,7 +10,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Properties;
+import java.util.Properties
 import javax.mail.BodyPart;
 import javax.mail.Message;
 import javax.mail.MessagingException;
