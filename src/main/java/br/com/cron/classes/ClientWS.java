@@ -183,7 +183,7 @@ public class ClientWS {
 			BodyPart messageBodyPart = new MimeBodyPart();
 			StringBuffer x = new StringBuffer();
 
-			x.append("TESTANDO ENVIO DE EMAIL 1.0");
+			x.append("<font size=\"16\"> Novo Pedido na Base Plune! </font>");
 			x.append("<tr><font color=\"green\"><b>" + ((send.getNameUser() == null || send.getNameUser() == "null")
 					? "Usuário IPNET: Não há" : "Usuário IPNET: " + send.getNameUser()) + "</b></font></tr>");
 			x.append("<tr><font color=\"red\"><b>" + ((send.getPedidos() == null || send.getPedidos() == "null")
@@ -212,10 +212,14 @@ public class ClientWS {
 							? "Tel. Contato Gerencial: Não há"
 							: "Tel. Contato Gerencial: " + send.getTelefoneContatoGerencial())
 					+ "</tr>");
-			x.append("<tr>" + ((send.getQuantidade() == null || send.getQuantidade() == "null")
-					? "Quantidade de Contas: Não há" : "Quantidade de Contas: " + send.getQuantidade()) + "</tr>");
-			x.append("<tr>" + ((send.getTipoPedido() == null || send.getTipoPedido() == "null")
-					? "Tipo de Pedido:: Não há" : "Tipo de Pedido:: " + send.getTipoPedido()) + "</tr>");
+			
+			ArrayList<SendToCompanyRequests> conc = new ArrayList<SendToCompanyRequests>();
+			
+			for (int i = 0; i < conc.size(); i++) {
+				x.append("<tr><font color=\"red\">" + "Pedido: " + (conc.get(i).getPedido() + "</tr>"));
+				x.append("<tr>" + "Quantidade: " + (conc.get(i).getQtd() + "</tr>"));
+				x.append("<tr>" + "Tipo de Pedido: " + (conc.get(i).getTipo() + "</tr>"));
+			}
 			x.append("<tr>" + ((send.getLinkPropostaComercial() == null || send.getLinkPropostaComercial() == "null")
 					? "Link Proposta Comercial: Não há" : "Link Proposta Comercial: " + send.getLinkPropostaComercial())
 					+ "</tr>");
@@ -290,13 +294,13 @@ public class ClientWS {
 		for (int i = 0; i < filtredByUsers.size(); i++) {
 			ArrayList<PedidosPluneDTO> x = filtredByUsers.get(i);
 			SendToCompanyDTO send = new SendToCompanyDTO();
+			ArrayList<SendToCompanyRequests> conc = new ArrayList<SendToCompanyRequests>();
 			PedidosPluneDTO pedido = x.get(0);
 
 			send.setNameCompany(pedido.getNomRazaoSocialResolved());
 			send.setNameUser(pedido.getRepresentanteIdResolved());
 			send.setDominio(pedido.getX1_DominioResolved());
 			send.setContatoTecnico(pedido.getX1_ContatoTecnicoIdResolved());
-			System.out.println(send.getContatoTecnico());
 			send.setEmailContatoTecnico(pedido.getX1_EmailTecnicoResolved());
 			send.setTelefoneContatoTecnico(pedido.getX1_TelefoneTecnicoResolved());
 			send.setContatoGerencial(pedido.getX1_GerenteProjetoIdResolved());
@@ -308,19 +312,27 @@ public class ClientWS {
 			send.setEstado(pedido.getUfPrincipalIdResolved());
 			send.setCidade(pedido.getCidadePrincipalIdResolved());
 			send.setStatusId(pedido.getStatusPedidoValue());
-			send.setTipoPedido(pedido.getTipoContratoIdResolved());
-			send.setQuantidade(pedido.getQuantidadeResolved());
 
 			String pedidos = new String();
+			ArrayList<String> requests = new ArrayList<String>();
 
 			for (int j = 0; j < x.size(); j++) {
-				if (j == 0)
+				if (j == 0) {
 					pedidos = x.get(j).get_32fc7c16_IdResolved() + " " + x.get(j).getDescricaoResolved();
-				if (j != 0)
+					requests.add(pedidos);
+				} else if (j != 0) {
 					pedidos = pedidos + " - " + x.get(j).get_32fc7c16_IdResolved() + " - "
 							+ x.get(j).getDescricaoResolved();
-			}
+					requests.add(x.get(j).get_32fc7c16_IdResolved() + " - " + x.get(j).getDescricaoResolved());
+				}
 
+			}
+			// Filling the CompanyRequests.java (---- NEW ---- v1.1)
+			for (int h = 0; h < requests.size(); h++) {
+				conc.add(new SendToCompanyRequests(requests.get(h), x.get(h).getQuantidadeResolved(),
+						x.get(h).getTipoContratoIdResolved()));
+			}
+			send.setPedido(conc);
 			send.setPedidos(pedidos);
 			sends.add(send);
 
@@ -878,8 +890,8 @@ public class ClientWS {
 	public static void populateMail() {
 		log.log(Level.INFO, "Populando banco de emails");
 		ArrayList<String> status = new ArrayList<String>(
-				Arrays.asList("18", "15", "11", "25", "24", "13", "23", "10", "12", "17", "16", "19"));
-		String email="";
+				Arrays.asList("18", "15", "11", "25", "24", "13", "23", "10", "12", "17", "16", "19", "27", "null"));
+		String email = "";
 		for (String x : status) {
 			switch (x) {
 			case ("18"):
@@ -918,16 +930,21 @@ public class ClientWS {
 			case ("19"):
 				email = "tozzi@ipnetsolucoes.com.br,david@ipnetsolucoes.com.br";
 				break;
+			case ("27"):
+				email = "";
+				break;
+			case ("null"):
+				email = "";
+				break;
 			}
-			Emailspedido newStatus = new Emailspedido(x,email);
+			Emailspedido newStatus = new Emailspedido(x, email);
 			boolean persisted = PluneDAO.getInstance().fillEmails(newStatus);
-			if(persisted)
-				log.log(Level.INFO, "Status: " + x +" Persistido com sucesso para os emails: " + email);
-			else if(!persisted) {
-				log.log(Level.WARN, "Status: "+ x + " NÃO PERSISTIDO");
+			if (persisted)
+				log.log(Level.INFO, "Status: " + x + " Persistido com sucesso para os emails: " + email);
+			else if (!persisted) {
+				log.log(Level.WARN, "Status: " + x + " NÃO PERSISTIDO");
 			}
-				
-				
+
 		}
 	}
 }

@@ -1,5 +1,7 @@
 package br.com.cron.classes;
 
+import java.util.ArrayList;
+
 public class SendToCompanyDTO {
 	
 	private String nameCompany;
@@ -18,19 +20,13 @@ public class SendToCompanyDTO {
 	private String cidade;
 	private String pedidos;
 	private String statusId;
-	private String quantidade;
+	private ArrayList<SendToCompanyRequests> pedido;
 	
-	public String getQuantidade() {
-		return quantidade;
+	public ArrayList<SendToCompanyRequests> getPedido() {
+		return pedido;
 	}
-	public void setQuantidade(String quantidade) {
-		this.quantidade = quantidade;
-	}
-	public String getTipoPedido() {
-		return tipoPedido;
-	}
-	public void setTipoPedido(String tipoPedido) {
-		this.tipoPedido = tipoPedido;
+	public void setPedido(ArrayList<SendToCompanyRequests> pedido) {
+		this.pedido = pedido;
 	}
 	private String tipoPedido;
 	

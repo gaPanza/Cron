@@ -122,7 +122,7 @@ public class PluneDAO {
 	public boolean fillEmails(Emailspedido x){
 		try{
 		entityManagerPlune.getTransaction().begin();
-		entityManagerPlune.persist(x);
+		entityManagerPlune.merge(x);
 		entityManagerPlune.getTransaction().commit();
 		return true;
 		}catch(Exception e){
