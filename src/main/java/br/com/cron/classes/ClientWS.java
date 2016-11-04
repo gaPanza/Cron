@@ -183,7 +183,7 @@ public class ClientWS {
 			BodyPart messageBodyPart = new MimeBodyPart();
 			StringBuffer x = new StringBuffer();
 
-			x.append("<font size=\"16\"> Novo Pedido na Base Plune! </font>");
+			x.append("Novo Pedido na Base Plune!");
 			x.append("<tr><font color=\"green\"><b>" + ((send.getNameUser() == null || send.getNameUser() == "null")
 					? "Usuário IPNET: Não há" : "Usuário IPNET: " + send.getNameUser()) + "</b></font></tr>");
 			x.append("<tr><font color=\"red\"><b>" + ((send.getPedidos() == null || send.getPedidos() == "null")
@@ -213,7 +213,7 @@ public class ClientWS {
 							: "Tel. Contato Gerencial: " + send.getTelefoneContatoGerencial())
 					+ "</tr>");
 			
-			ArrayList<SendToCompanyRequests> conc = new ArrayList<SendToCompanyRequests>();
+			ArrayList<SendToCompanyRequests> conc = send.getPedido();
 			
 			for (int i = 0; i < conc.size(); i++) {
 				x.append("<tr><font color=\"red\">" + "Pedido: " + (conc.get(i).getPedido() + "</tr>"));
@@ -840,8 +840,6 @@ public class ClientWS {
 			in.close();
 
 			log.log(Level.INFO, "JSON Parseado, iniciado filtro");
-
-			// Filtrando o JSON
 
 			String string = response.toString();
 			ObjectMapper mapper = new ObjectMapper();
