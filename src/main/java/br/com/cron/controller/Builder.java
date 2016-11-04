@@ -108,95 +108,101 @@ public class Builder {
 		scanner.nextLine();
 	}
 
-	public static void modificar() { // Não funcional.(necessário esforço de 2hs)
-//		consultar();
-//		System.out.println("Digite a id da tarefa a ser modificada.");
-//		int option = 0;
-//		Long id = scanner.nextLong();
-//		Tarefa x = TarefaDAO.getInstance().getById(id);
-//		if (x != null) {
-//			System.out.println("O que deve ser modificado:\n 1 - Descrição\n 2 - Email \n 3 - Data do alerta\n");
-//			option = scanner.nextInt();
-//		}
-//
-//		if (option == 1) {
-//			System.out.println("Digite uma nova descrição: ");
-//			scanner.nextLine();
-//			String description = scanner.nextLine();
-//			x.setDescricao(description);
-//			TarefaDAO.getInstance().merge(x);
-//			System.out.println("Tarefa modificada com sucesso.");
-//		}
-//
-//		else if (option == 2) {
-//			System.out.println(
-//					"O que deseja fazer: \n 1 - Adicionar outro endereço de email. \n 2 - Substituir o endereço de email atual.");
-//			scanner.nextLine();
-//			int emailOption = scanner.nextInt();
-//
-//			if (emailOption == 1) {
-//				List<String> taskEmail = new ArrayList<String>();
-//				boolean it = true;
-//				while (it) {
-//					taskEmail = x.getEmail();
-//					System.out.println("Digite o endereço de email");
-//					scanner.nextLine();
-//					String newEmail = scanner.nextLine();
-//					taskEmail.add(newEmail);
-//					System.out.println("Deseja adicionar outro email?\nY/N");
-//					String opt = scanner.nextLine().trim().toLowerCase();
-//					if (opt.equals("n")) {
-//						it = false;
-//					} else if (opt.equals("y")) {
-//						it = true;
-//					} else {
-//						System.out.println("Caracter Inválido digite Y ou N");
-//						it = false;
-//					}
-//				}
-//				x.setEmail(taskEmail);
-//				TarefaDAO.getInstance().merge(x);
-//				System.out.println("Email alterado com sucesso");
-//
-//			}
-//		}
-//
-//		else if (option == 3) {
-//			System.out.println("Procurando a opção da tarefa...");
-//			int taskOption = TarefaDAO.getInstance().getById(id).getOption();
-//
-//			if (taskOption == 1) {
-//				Calendar taskCalendar = Calendar.getInstance();
-//				taskCalendar = br.com.cron.util.MenuUtil.Menu_1(taskCalendar);
-//				String cronConfig = (taskCalendar.get(Calendar.MINUTE) + " " + taskCalendar.get(Calendar.HOUR) + " * "
-//						+ "* " + taskCalendar.get(Calendar.DAY_OF_WEEK - 1));
-//
-//				// x.setCronconfig(cronConfig);
-//
-//				System.out.println("Data alterada com sucesso");
-//
-//			}
-//
-//			else if (taskOption == 2) {
-//				// String cronConfig = br.com.cron.util.MenuUtil.Menu_2();
-//				// x.setCronconfig(cronConfig);
-//
-//				System.out.println("Data alterada com sucesso");
-//			}
-//
-//			else if (taskOption == 3) {
-//				Calendar taskCalendar = Calendar.getInstance();
-//				taskCalendar = br.com.cron.util.MenuUtil.Menu_3(taskCalendar);
-//				String cronConfig = (taskCalendar.get(Calendar.MINUTE) + " " + taskCalendar.get(Calendar.HOUR) + " "
-//						+ taskCalendar.get(Calendar.DAY_OF_MONTH) + " " + taskCalendar.get(Calendar.MONTH) + " *");
-//
-//				// x.setCronconfig(cronConfig);
-//
-//				System.out.println("Data alterada com sucesso");
-//			}
-//		}
-//
-}
+	public static void modificar() { // Não funcional.(necessário esforço de
+										// 2hs)
+		// consultar();
+		// System.out.println("Digite a id da tarefa a ser modificada.");
+		// int option = 0;
+		// Long id = scanner.nextLong();
+		// Tarefa x = TarefaDAO.getInstance().getById(id);
+		// if (x != null) {
+		// System.out.println("O que deve ser modificado:\n 1 - Descrição\n 2 -
+		// Email \n 3 - Data do alerta\n");
+		// option = scanner.nextInt();
+		// }
+		//
+		// if (option == 1) {
+		// System.out.println("Digite uma nova descrição: ");
+		// scanner.nextLine();
+		// String description = scanner.nextLine();
+		// x.setDescricao(description);
+		// TarefaDAO.getInstance().merge(x);
+		// System.out.println("Tarefa modificada com sucesso.");
+		// }
+		//
+		// else if (option == 2) {
+		// System.out.println(
+		// "O que deseja fazer: \n 1 - Adicionar outro endereço de email. \n 2 -
+		// Substituir o endereço de email atual.");
+		// scanner.nextLine();
+		// int emailOption = scanner.nextInt();
+		//
+		// if (emailOption == 1) {
+		// List<String> taskEmail = new ArrayList<String>();
+		// boolean it = true;
+		// while (it) {
+		// taskEmail = x.getEmail();
+		// System.out.println("Digite o endereço de email");
+		// scanner.nextLine();
+		// String newEmail = scanner.nextLine();
+		// taskEmail.add(newEmail);
+		// System.out.println("Deseja adicionar outro email?\nY/N");
+		// String opt = scanner.nextLine().trim().toLowerCase();
+		// if (opt.equals("n")) {
+		// it = false;
+		// } else if (opt.equals("y")) {
+		// it = true;
+		// } else {
+		// System.out.println("Caracter Inválido digite Y ou N");
+		// it = false;
+		// }
+		// }
+		// x.setEmail(taskEmail);
+		// TarefaDAO.getInstance().merge(x);
+		// System.out.println("Email alterado com sucesso");
+		//
+		// }
+		// }
+		//
+		// else if (option == 3) {
+		// System.out.println("Procurando a opção da tarefa...");
+		// int taskOption = TarefaDAO.getInstance().getById(id).getOption();
+		//
+		// if (taskOption == 1) {
+		// Calendar taskCalendar = Calendar.getInstance();
+		// taskCalendar = br.com.cron.util.MenuUtil.Menu_1(taskCalendar);
+		// String cronConfig = (taskCalendar.get(Calendar.MINUTE) + " " +
+		// taskCalendar.get(Calendar.HOUR) + " * "
+		// + "* " + taskCalendar.get(Calendar.DAY_OF_WEEK - 1));
+		//
+		// // x.setCronconfig(cronConfig);
+		//
+		// System.out.println("Data alterada com sucesso");
+		//
+		// }
+		//
+		// else if (taskOption == 2) {
+		// // String cronConfig = br.com.cron.util.MenuUtil.Menu_2();
+		// // x.setCronconfig(cronConfig);
+		//
+		// System.out.println("Data alterada com sucesso");
+		// }
+		//
+		// else if (taskOption == 3) {
+		// Calendar taskCalendar = Calendar.getInstance();
+		// taskCalendar = br.com.cron.util.MenuUtil.Menu_3(taskCalendar);
+		// String cronConfig = (taskCalendar.get(Calendar.MINUTE) + " " +
+		// taskCalendar.get(Calendar.HOUR) + " "
+		// + taskCalendar.get(Calendar.DAY_OF_MONTH) + " " +
+		// taskCalendar.get(Calendar.MONTH) + " *");
+		//
+		// // x.setCronconfig(cronConfig);
+		//
+		// System.out.println("Data alterada com sucesso");
+		// }
+		// }
+		//
+	}
 
 	public static void menuPlune() {
 		int st = 1;
@@ -246,6 +252,8 @@ public class Builder {
 					try {
 						br.com.cron.classes.ClientWS.populatedB(
 								"https://ipnet.plune.com.br/JSON/Venda.PedidoItem/Browse?&_AuthToken=Ultra.Users:100-29-3822329&_Venda.PedidoItem.BrowseSequence=Id,29d7b0266a52eedb3fbd8af632fc7c16%23StatusPedido,29d7b0266a52eedb3fbd8af632fc7c16%23RepresentanteId,29d7b0266a52eedb3fbd8af632fc7c16%23Id,579e2d75a12f6766438b7350f27500ee%23NomRazaoSocial,x1_Dominio,x1_ContatoTecnicoId,x1_EmailTecnico,x1_TelefoneTecnico,x1_GerenteProjetoId,x1_GerenteProjetoEmail,x1_GerenteProjetoTelefone,x991_Id,ProdutoId,Quantidade,29d7b0266a52eedb3fbd8af632fc7c16%23TipoContratoId,x1_NivelAcompanhamento,x1_Documento,579e2d75a12f6766438b7350f27500ee%23CEPPrincipal,579e2d75a12f6766438b7350f27500ee%23PaisPrincipalId,579e2d75a12f6766438b7350f27500ee%23UFPrincipalId,579e2d75a12f6766438b7350f27500ee%23CidadePrincipalId,579e2d75a12f6766438b7350f27500ee%23BairroPrincipal,579e2d75a12f6766438b7350f27500ee%23EnderecoPrincipal,579e2d75a12f6766438b7350f27500ee%23NumeroPrincipal,579e2d75a12f6766438b7350f27500ee%23ComplementoPrincipal&_Venda.PedidoItem.BrowseLimit=10000&_Venda.PedidoItem.Order=%22Venda%22.%22PedidoItem%22.%2229d7b0266a52eedb3fbd8af632fc7c16#Id\"&__debug__=1");
+						br.com.cron.classes.ClientWS.populateMail();
+						
 					} catch (IOException e) {
 						e.printStackTrace();
 					}

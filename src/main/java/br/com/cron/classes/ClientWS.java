@@ -25,6 +25,8 @@ import javax.mail.internet.MimeMultipart;
 import br.com.cron.DAO.TarefaDAO;
 import br.com.cron.controller.Builder;
 import br.com.cron.enums.StatusEnum;
+import br.com.cron.resources.Emailspedido;
+
 import org.apache.log4j.Level;
 import org.apache.log4j.Logger;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -35,22 +37,22 @@ public class ClientWS {
 	JavaMail sendEmail = new JavaMail();
 
 	static Logger log = Logger.getLogger(ClientWS.class.getName());
-	
-	public static void initialize(){
-			String url = "https://ipnet.plune.com.br/JSON/Venda.PedidoItem/Browse?&_AuthToken=Ultra.Users:100-29-3822329&_Venda.PedidoItem.BrowseSequence=Id,29d7b0266a52eedb3fbd8af632fc7c16%23StatusPedido,29d7b0266a52eedb3fbd8af632fc7c16%23RepresentanteId,29d7b0266a52eedb3fbd8af632fc7c16%23Id,579e2d75a12f6766438b7350f27500ee%23NomRazaoSocial,x1_Dominio,x1_ContatoTecnicoId,x1_EmailTecnico,x1_TelefoneTecnico,x1_GerenteProjetoId,x1_GerenteProjetoEmail,x1_GerenteProjetoTelefone,x991_Id,ProdutoId,Quantidade,29d7b0266a52eedb3fbd8af632fc7c16%23TipoContratoId,x1_NivelAcompanhamento,x1_Documento,579e2d75a12f6766438b7350f27500ee%23CEPPrincipal,579e2d75a12f6766438b7350f27500ee%23PaisPrincipalId,579e2d75a12f6766438b7350f27500ee%23UFPrincipalId,579e2d75a12f6766438b7350f27500ee%23CidadePrincipalId,579e2d75a12f6766438b7350f27500ee%23BairroPrincipal,579e2d75a12f6766438b7350f27500ee%23EnderecoPrincipal,579e2d75a12f6766438b7350f27500ee%23NumeroPrincipal,579e2d75a12f6766438b7350f27500ee%23ComplementoPrincipal&_Venda.PedidoItem.BrowseLimit=10000&_Venda.PedidoItem.Order=%22Venda%22.%22PedidoItem%22.%2229d7b0266a52eedb3fbd8af632fc7c16#Id\"&__debug__=1";
-			//Passa a string URL e transforma em uma conexao http
-			try {
-				sendGet(url);
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-			try {
-				ClientWS.shotEmails();
-			} catch (MessagingException | URISyntaxException | IOException e) {
-				e.printStackTrace();
-			}
+
+	public static void initialize() {
+		String url = "https://ipnet.plune.com.br/JSON/Venda.PedidoItem/Browse?&_AuthToken=Ultra.Users:100-29-3822329&_Venda.PedidoItem.BrowseSequence=Id,29d7b0266a52eedb3fbd8af632fc7c16%23StatusPedido,29d7b0266a52eedb3fbd8af632fc7c16%23RepresentanteId,29d7b0266a52eedb3fbd8af632fc7c16%23Id,579e2d75a12f6766438b7350f27500ee%23NomRazaoSocial,x1_Dominio,x1_ContatoTecnicoId,x1_EmailTecnico,x1_TelefoneTecnico,x1_GerenteProjetoId,x1_GerenteProjetoEmail,x1_GerenteProjetoTelefone,x991_Id,ProdutoId,Quantidade,29d7b0266a52eedb3fbd8af632fc7c16%23TipoContratoId,x1_NivelAcompanhamento,x1_Documento,579e2d75a12f6766438b7350f27500ee%23CEPPrincipal,579e2d75a12f6766438b7350f27500ee%23PaisPrincipalId,579e2d75a12f6766438b7350f27500ee%23UFPrincipalId,579e2d75a12f6766438b7350f27500ee%23CidadePrincipalId,579e2d75a12f6766438b7350f27500ee%23BairroPrincipal,579e2d75a12f6766438b7350f27500ee%23EnderecoPrincipal,579e2d75a12f6766438b7350f27500ee%23NumeroPrincipal,579e2d75a12f6766438b7350f27500ee%23ComplementoPrincipal&_Venda.PedidoItem.BrowseLimit=10000&_Venda.PedidoItem.Order=%22Venda%22.%22PedidoItem%22.%2229d7b0266a52eedb3fbd8af632fc7c16#Id\"&__debug__=1";
+		// Passa a string URL e transforma em uma conexao http
+		try {
+			sendGet(url);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		try {
+			ClientWS.shotEmails();
+		} catch (MessagingException | URISyntaxException | IOException e) {
+			e.printStackTrace();
+		}
 	}
-	
+
 	// Logica para ler o http ou o arquivo json e persistir no banco
 	public static void sendGet(String chamadaWS) throws IOException {
 		File dir = new File(System.getenv("APPDATA") + "\\Cron");
@@ -73,10 +75,10 @@ public class ClientWS {
 
 		try {
 			con.connect();
-			//BufferedReader in = new BufferedReader(
-					//new InputStreamReader(new FileInputStream("View JSON.json"), "Cp1252"));
-			BufferedReader in = new BufferedReader(
-					new InputStreamReader(con.getInputStream(),"Cp1252"));
+			// BufferedReader in = new BufferedReader(
+			// new InputStreamReader(new FileInputStream("View JSON.json"),
+			// "Cp1252"));
+			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), "Cp1252"));
 			String inputLine;
 			StringBuffer response = new StringBuffer();
 
@@ -152,8 +154,7 @@ public class ClientWS {
 	}
 
 	public static void postEmail(SendToCompanyDTO send) throws MessagingException, URISyntaxException, IOException {
-		
-		
+
 		Properties props = new Properties();
 
 		props.setProperty("mail.smtp.host", "smtp.gmail.com");
@@ -175,34 +176,59 @@ public class ClientWS {
 			message.setFrom(new InternetAddress("ipnetcron@gmail.com"));
 			String emails = null;
 			emails = TarefaDAO.getInstance().listEmailsById(send.getStatusId());
-			
+
 			message.setRecipients(Message.RecipientType.TO, InternetAddress.parse(emails));
 			message.setSubject("Pedidos Plune");
 
 			BodyPart messageBodyPart = new MimeBodyPart();
 			StringBuffer x = new StringBuffer();
-			
-			
+
 			x.append("TESTANDO ENVIO DE EMAIL 1.0");
-			x.append("<tr><font color=\"green\"><b>"+((send.getNameUser() == null || send.getNameUser() == "null") ? "Usuário IPNET: Não há" : "Usuário IPNET: "+ send.getNameUser()) + "</b></font></tr>");
-			x.append("<tr><font color=\"red\"><b>"+((send.getPedidos() == null || send.getPedidos() == "null") ? "Pedidos: Não há" : "Pedidos: "+ send.getPedidos()) + "</b></font></tr>");
-			x.append("<tr>"+((send.getNameCompany() == null || send.getNameCompany() == "null") ? "Empresa: Não há" : "Empresa: "+ send.getNameCompany()) + "</tr>");
-			x.append("<tr>"+((send.getDominio() == null || send.getDominio() == "null") ? "Dominio: Não há" : "Dominio: "+ send.getDominio()) + "</tr>");
-			x.append("<tr>"+((send.getContatoTecnico() == null || send.getContatoTecnico() == "null") ? "Contato Técnico: Não há" : "Contato Técnico: "+ send.getContatoTecnico()) + "</tr>");
-			x.append("<tr>"+((send.getEmailContatoTecnico() == null || send.getEmailContatoTecnico() == "null") ? "Email Contato Técnico: Não há" : "Email Contato Técnico: "+ send.getEmailContatoTecnico()) + "</tr>");
-			x.append("<tr>"+((send.getTelefoneContatoTecnico() == null || send.getTelefoneContatoTecnico() == "null") ? "Tel. Contato Técnico: Não há" : "Tel. Contato Técnico: "+ send.getTelefoneContatoTecnico()) + "</tr>");
-			x.append("<tr>"+((send.getContatoGerencial() == null || send.getContatoGerencial() == "null") ? "Contato Gerencial: Não há" : "Contato Gerencial: "+ send.getContatoGerencial()) + "</tr>");
-			x.append("<tr>"+((send.getEmailContatoGerencial() == null || send.getEmailContatoGerencial() == "null") ? "Email Contato Gerencial: Não há" : "Email Contato Gerencial: "+ send.getEmailContatoGerencial()) + "</tr>");
-			x.append("<tr>"+((send.getTelefoneContatoGerencial() == null || send.getTelefoneContatoGerencial() == "null") ? "Tel. Contato Gerencial: Não há" : "Tel. Contato Gerencial: "+ send.getTelefoneContatoGerencial()) + "</tr>");
-			x.append("<tr>"+((send.getQuantidade() == null || send.getQuantidade() == "null") ? "Quantidade de Contas: Não há" : "Quantidade de Contas: "+ send.getQuantidade()) + "</tr>");
-			x.append("<tr>"+((send.getTipoPedido() == null || send.getTipoPedido() == "null") ? "Tipo de Pedido:: Não há" : "Tipo de Pedido:: "+ send.getTipoPedido()) + "</tr>");
-			x.append("<tr>"+((send.getLinkPropostaComercial() == null || send.getLinkPropostaComercial() == "null") ? "Link Proposta Comercial: Não há" : "Link Proposta Comercial: "+ send.getLinkPropostaComercial()) + "</tr>");
-			x.append("<tr>"+((send.getEndereco() == null || send.getEndereco() == "null") ? "Endereço: Não há" : "Endereço: "+ send.getEndereco()) + "</tr>");
-			x.append("<tr>"+((send.getCep() == null || send.getCep() == "null") ? "CEP: Não há" : "CEP: "+ send.getCep()) + "</tr>");
-			x.append("<tr>"+((send.getEstado() == null || send.getEstado() == "null") ? "Estado: Não há" : "Estado: "+ send.getEstado()) + "</tr>");
-			x.append("<tr>"+((send.getCidade() == null || send.getCidade() == "null") ? "Cidade: Não há" : "Cidade: "+ send.getCidade()) + "</tr>");
-			
-			
+			x.append("<tr><font color=\"green\"><b>" + ((send.getNameUser() == null || send.getNameUser() == "null")
+					? "Usuário IPNET: Não há" : "Usuário IPNET: " + send.getNameUser()) + "</b></font></tr>");
+			x.append("<tr><font color=\"red\"><b>" + ((send.getPedidos() == null || send.getPedidos() == "null")
+					? "Pedidos: Não há" : "Pedidos: " + send.getPedidos()) + "</b></font></tr>");
+			x.append("<tr>" + ((send.getNameCompany() == null || send.getNameCompany() == "null") ? "Empresa: Não há"
+					: "Empresa: " + send.getNameCompany()) + "</tr>");
+			x.append("<tr>" + ((send.getDominio() == null || send.getDominio() == "null") ? "Dominio: Não há"
+					: "Dominio: " + send.getDominio()) + "</tr>");
+			x.append("<tr>" + ((send.getContatoTecnico() == null || send.getContatoTecnico() == "null")
+					? "Contato Técnico: Não há" : "Contato Técnico: " + send.getContatoTecnico()) + "</tr>");
+			x.append("<tr>" + ((send.getEmailContatoTecnico() == null || send.getEmailContatoTecnico() == "null")
+					? "Email Contato Técnico: Não há" : "Email Contato Técnico: " + send.getEmailContatoTecnico())
+					+ "</tr>");
+			x.append("<tr>" + ((send.getTelefoneContatoTecnico() == null || send.getTelefoneContatoTecnico() == "null")
+					? "Tel. Contato Técnico: Não há" : "Tel. Contato Técnico: " + send.getTelefoneContatoTecnico())
+					+ "</tr>");
+			x.append("<tr>"
+					+ ((send.getContatoGerencial() == null || send.getContatoGerencial() == "null")
+							? "Contato Gerencial: Não há" : "Contato Gerencial: " + send.getContatoGerencial())
+					+ "</tr>");
+			x.append("<tr>" + ((send.getEmailContatoGerencial() == null || send.getEmailContatoGerencial() == "null")
+					? "Email Contato Gerencial: Não há" : "Email Contato Gerencial: " + send.getEmailContatoGerencial())
+					+ "</tr>");
+			x.append("<tr>"
+					+ ((send.getTelefoneContatoGerencial() == null || send.getTelefoneContatoGerencial() == "null")
+							? "Tel. Contato Gerencial: Não há"
+							: "Tel. Contato Gerencial: " + send.getTelefoneContatoGerencial())
+					+ "</tr>");
+			x.append("<tr>" + ((send.getQuantidade() == null || send.getQuantidade() == "null")
+					? "Quantidade de Contas: Não há" : "Quantidade de Contas: " + send.getQuantidade()) + "</tr>");
+			x.append("<tr>" + ((send.getTipoPedido() == null || send.getTipoPedido() == "null")
+					? "Tipo de Pedido:: Não há" : "Tipo de Pedido:: " + send.getTipoPedido()) + "</tr>");
+			x.append("<tr>" + ((send.getLinkPropostaComercial() == null || send.getLinkPropostaComercial() == "null")
+					? "Link Proposta Comercial: Não há" : "Link Proposta Comercial: " + send.getLinkPropostaComercial())
+					+ "</tr>");
+			x.append("<tr>" + ((send.getEndereco() == null || send.getEndereco() == "null") ? "Endereço: Não há"
+					: "Endereço: " + send.getEndereco()) + "</tr>");
+			x.append("<tr>"
+					+ ((send.getCep() == null || send.getCep() == "null") ? "CEP: Não há" : "CEP: " + send.getCep())
+					+ "</tr>");
+			x.append("<tr>" + ((send.getEstado() == null || send.getEstado() == "null") ? "Estado: Não há"
+					: "Estado: " + send.getEstado()) + "</tr>");
+			x.append("<tr>" + ((send.getCidade() == null || send.getCidade() == "null") ? "Cidade: Não há"
+					: "Cidade: " + send.getCidade()) + "</tr>");
+
 			messageBodyPart.setContent(x.toString(), "text/html; charset=utf-8");
 
 			Multipart multipart = new MimeMultipart();
@@ -214,9 +240,7 @@ public class ClientWS {
 			Transport.send(message);
 
 			log.log(Level.INFO, "Email enviado:\n" + send.getPedidos());
-			
-			
-			
+
 		} catch (MessagingException e) {
 			log.log(Level.WARN, "Email não enviado.");
 			throw new RuntimeException(e);
@@ -286,7 +310,7 @@ public class ClientWS {
 			send.setStatusId(pedido.getStatusPedidoValue());
 			send.setTipoPedido(pedido.getTipoContratoIdResolved());
 			send.setQuantidade(pedido.getQuantidadeResolved());
-			
+
 			String pedidos = new String();
 
 			for (int j = 0; j < x.size(); j++) {
@@ -305,13 +329,13 @@ public class ClientWS {
 			postEmail(h);
 		}
 		PluneDAO.getInstance().modifySts();
-		
+
 		log.log(Level.INFO,
 				"\n_____________________________________________________________________________\n"
 						+ "|                                                                             |\n"
 						+ "|                     FIM DO PROCESSO DE ENVIO DE EMAILS                      |\n"
 						+ "|_____________________________________________________________________________|\n");
-		
+
 		Builder.main(null);
 
 	}
@@ -762,19 +786,17 @@ public class ClientWS {
 
 	private static String statusDefine(int status) {
 
-
 		if (status == 18 || status == 24 || status == 13 || status == 23 || status == 11) {
 			return StatusEnum.NAOENVIADO.toString();
-		} else if (status == 15 || status == 25 || status == 10 || status == 17 || status == 16
-				|| status == 19) {
+		} else if (status == 15 || status == 25 || status == 10 || status == 17 || status == 16 || status == 19) {
 			return StatusEnum.PENDENTE.toString();
-		} else if(status == 12){
+		} else if (status == 12) {
 			return StatusEnum.PENDENTE.toString();
 		}
 
 		return StatusEnum.NAOENVIADO.toString();
 	}
-	
+
 	public static void populatedB(String chamadaWS) throws IOException {
 		File dir = new File(System.getenv("APPDATA") + "\\Cron");
 		if (!dir.exists()) {
@@ -796,8 +818,7 @@ public class ClientWS {
 
 		try {
 			con.connect();
-			BufferedReader in = new BufferedReader(
-					new InputStreamReader(con.getInputStream(),"Cp1252"));
+			BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream(), "Cp1252"));
 			String inputLine;
 			StringBuffer response = new StringBuffer();
 
@@ -851,6 +872,62 @@ public class ClientWS {
 		} catch (Exception e) {
 			log.log(Level.FATAL, e.getMessage());
 			e.printStackTrace();
+		}
+	}
+
+	public static void populateMail() {
+		log.log(Level.INFO, "Populando banco de emails");
+		ArrayList<String> status = new ArrayList<String>(
+				Arrays.asList("18", "15", "11", "25", "24", "13", "23", "10", "12", "17", "16", "19"));
+		String email="";
+		for (String x : status) {
+			switch (x) {
+			case ("18"):
+				email = "";
+				break;
+			case ("15"):
+				email = "tozzi@ipnetsolucoes.com.br,david@ipnetsolucoes.com.br";
+				break;
+			case ("11"):
+				email = "";
+				break;
+			case ("25"):
+				email = "tozzi@ipnetsolucoes.com.br,david@ipnetsolucoes.com.br";
+				break;
+			case ("24"):
+				email = "";
+				break;
+			case ("13"):
+				email = "";
+				break;
+			case ("23"):
+				email = "";
+				break;
+			case ("10"):
+				email = "renovações@ipnetsoluções.com.br";
+				break;
+			case ("12"):
+				email = "renovações@ipnetsoluções.com.br";
+				break;
+			case ("17"):
+				email = "renovações@ipnetsoluções.com.br";
+				break;
+			case ("16"):
+				email = "tozzi@ipnetsolucoes.com.br,david@ipnetsolucoes.com.br";
+				break;
+			case ("19"):
+				email = "tozzi@ipnetsolucoes.com.br,david@ipnetsolucoes.com.br";
+				break;
+			}
+			Emailspedido newStatus = new Emailspedido(x,email);
+			boolean persisted = PluneDAO.getInstance().fillEmails(newStatus);
+			if(persisted)
+				log.log(Level.INFO, "Status: " + x +" Persistido com sucesso para os emails: " + email);
+			else if(!persisted) {
+				log.log(Level.WARN, "Status: "+ x + " NÃO PERSISTIDO");
+			}
+				
+				
 		}
 	}
 }

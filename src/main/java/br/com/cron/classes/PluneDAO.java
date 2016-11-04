@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import javax.persistence.EntityManager;
 import javax.persistence.Persistence;
 
+import br.com.cron.resources.Emailspedido;
+
 public class PluneDAO {
 
 	private static PluneDAO instance;
@@ -116,6 +118,19 @@ public class PluneDAO {
 			e.printStackTrace();
 			return null;
 		}
+	}
+	public boolean fillEmails(Emailspedido x){
+		try{
+		entityManagerPlune.getTransaction().begin();
+		entityManagerPlune.persist(x);
+		entityManagerPlune.getTransaction().commit();
+		return true;
+		}catch(Exception e){
+			e.printStackTrace();
+			entityManagerPlune.getTransaction().rollback();
+			return false;
+		}
+		
 	}
 
 }
