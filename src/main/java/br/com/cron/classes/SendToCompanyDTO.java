@@ -20,6 +20,16 @@ public class SendToCompanyDTO {
 	private String cidade;
 	private String pedidos;
 	private String statusId;
+	private String motivoFechamento;
+	private String clientId;
+	private String OpportunityID;
+	private String Observação;
+	
+	//Motivo do Fechamento: Capacidade Técnica
+	//ClientID: Não há
+	//OpportunityID: Não há
+	//Observação: Não há
+	
 	private ArrayList<SendToCompanyRequests> pedido;
 	
 	public ArrayList<SendToCompanyRequests> getPedido() {

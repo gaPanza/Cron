@@ -74,6 +74,12 @@ public class PluneDAO {
 
 		}
 	}
+	public String persistNull(PedidosPluneDTO pedido){
+		entityManagerPlune.getTransaction().begin();
+		entityManagerPlune.persist(pedido);
+		entityManagerPlune.getTransaction().commit();
+		return pedido.getStatusPedidoValue();
+	}
 
 	// Insere e atualiza um Pedido no Banco
 	public void merge(PedidosPluneDTO pedido) {
@@ -132,5 +138,10 @@ public class PluneDAO {
 		}
 		
 	}
+	
+	/*public static Integer rowNumbers(){
+		return entityManagerPlune.createNativeQuery("SELECT COUNT(*) FROM pedidosplune").getSingleResult();
+		
+	}*/
 
 }

@@ -37,9 +37,9 @@ public class ClientWS {
 	JavaMail sendEmail = new JavaMail();
 
 	static Logger log = Logger.getLogger(ClientWS.class.getName());
-
+	
 	public static void initialize() {
-		String url = "https://ipnet.plune.com.br/JSON/Venda.PedidoItem/Browse?&_AuthToken=Ultra.Users:100-29-3822329&_Venda.PedidoItem.BrowseSequence=Id,29d7b0266a52eedb3fbd8af632fc7c16%23StatusPedido,29d7b0266a52eedb3fbd8af632fc7c16%23RepresentanteId,29d7b0266a52eedb3fbd8af632fc7c16%23Id,579e2d75a12f6766438b7350f27500ee%23NomRazaoSocial,x1_Dominio,x1_ContatoTecnicoId,x1_EmailTecnico,x1_TelefoneTecnico,x1_GerenteProjetoId,x1_GerenteProjetoEmail,x1_GerenteProjetoTelefone,x991_Id,ProdutoId,Quantidade,29d7b0266a52eedb3fbd8af632fc7c16%23TipoContratoId,x1_NivelAcompanhamento,x1_Documento,579e2d75a12f6766438b7350f27500ee%23CEPPrincipal,579e2d75a12f6766438b7350f27500ee%23PaisPrincipalId,579e2d75a12f6766438b7350f27500ee%23UFPrincipalId,579e2d75a12f6766438b7350f27500ee%23CidadePrincipalId,579e2d75a12f6766438b7350f27500ee%23BairroPrincipal,579e2d75a12f6766438b7350f27500ee%23EnderecoPrincipal,579e2d75a12f6766438b7350f27500ee%23NumeroPrincipal,579e2d75a12f6766438b7350f27500ee%23ComplementoPrincipal&_Venda.PedidoItem.BrowseLimit=10000&_Venda.PedidoItem.Order=%22Venda%22.%22PedidoItem%22.%2229d7b0266a52eedb3fbd8af632fc7c16#Id\"&__debug__=1";
+		String url = "https://ipnet.plune.com.br/JSON/Venda.PedidoItem/Browse?&_AuthToken=Ultra.Users:100-29-3822329&_Venda.PedidoItem.BrowseSequence=Id,29d7b0266a52eedb3fbd8af632fc7c16%23StatusPedido,29d7b0266a52eedb3fbd8af632fc7c16%23RepresentanteId,29d7b0266a52eedb3fbd8af632fc7c16%23Id,579e2d75a12f6766438b7350f27500ee%23NomRazaoSocial,x1_Dominio,x1_ContatoTecnicoId,x1_EmailTecnico,x1_TelefoneTecnico,x1_GerenteProjetoId,x1_GerenteProjetoEmail,x1_GerenteProjetoTelefone,x1_Email,x1_ClientID,x1_OpportunidID,x1_Observacao,29d7b0266a52eedb3fbd8af632fc7c16%23OportunidadeId,29d7b0266a52eedb3fbd8af632fc7c16%23MotivoFechamentoId,x991_Id,ProdutoId,Quantidade,29d7b0266a52eedb3fbd8af632fc7c16%23TipoContratoId,x1_NivelAcompanhamento,x1_Documento,579e2d75a12f6766438b7350f27500ee%23CEPPrincipal,579e2d75a12f6766438b7350f27500ee%23PaisPrincipalId,579e2d75a12f6766438b7350f27500ee%23UFPrincipalId,579e2d75a12f6766438b7350f27500ee%23CidadePrincipalId,579e2d75a12f6766438b7350f27500ee%23BairroPrincipal,579e2d75a12f6766438b7350f27500ee%23EnderecoPrincipal,579e2d75a12f6766438b7350f27500ee%23NumeroPrincipal,579e2d75a12f6766438b7350f27500ee%23ComplementoPrincipal&_Venda.PedidoItem.BrowseLimit=10000&_Venda.PedidoItem.Order=%22Venda%22.%22PedidoItem%22.%22CompanyId%22&__debug__=1";
 		// Passa a string URL e transforma em uma conexao http
 		try {
 			sendGet(url);
@@ -52,7 +52,7 @@ public class ClientWS {
 			e.printStackTrace();
 		}
 	}
-
+	
 	// Logica para ler o http ou o arquivo json e persistir no banco
 	public static void sendGet(String chamadaWS) throws IOException {
 		File dir = new File(System.getenv("APPDATA") + "\\Cron");
@@ -120,11 +120,12 @@ public class ClientWS {
 			 * 
 			 * 
 			 */
+			
 			int i = 1;
 			while (row.get(i) != null) {
 				getRow = row.get(i);
 				PedidosPluneDTO x = new PedidosPluneDTO();
-				for (int j = 1; j < 38; j++) {
+				for (int j = 1; j < 45; j++) {
 					x = getField(j, x, getRow);
 				}
 
@@ -212,9 +213,9 @@ public class ClientWS {
 							? "Tel. Contato Gerencial: Não há"
 							: "Tel. Contato Gerencial: " + send.getTelefoneContatoGerencial())
 					+ "</tr>");
-			
+
 			ArrayList<SendToCompanyRequests> conc = send.getPedido();
-			
+
 			for (int i = 0; i < conc.size(); i++) {
 				x.append("<tr><font color=\"red\">" + "Pedido: " + (conc.get(i).getPedido() + "</tr>"));
 				x.append("<tr>" + "Quantidade: " + (conc.get(i).getQtd() + "</tr>"));
@@ -312,7 +313,7 @@ public class ClientWS {
 			send.setEstado(pedido.getUfPrincipalIdResolved());
 			send.setCidade(pedido.getCidadePrincipalIdResolved());
 			send.setStatusId(pedido.getStatusPedidoValue());
-
+			
 			String pedidos = new String();
 			ArrayList<String> requests = new ArrayList<String>();
 
@@ -374,10 +375,10 @@ public class ClientWS {
 				resolved = getSubRow.findValue("resolved");
 				x.setX1_DocumentoValue(value.asText());
 				x.setX1_DocumentoResolved(resolved.asText());
-				return x;
 			} catch (NullPointerException e) {
 				x.setX1_DocumentoResolved(null);
 			}
+			return x;
 		case 3:
 			try {
 				getSubRow = getRow.findValue("ClienteId");
@@ -436,7 +437,6 @@ public class ClientWS {
 				x.setCidadePrincipalIdResolved(null);
 			}
 			return x;
-
 		case 8:
 			try {
 				getSubRow = getRow.findValue("29d7b0266a52eedb3fbd8af632fc7c16#RepresentanteId");
@@ -448,7 +448,6 @@ public class ClientWS {
 				x.setRepresentanteIdResolved(null);
 			}
 			return x;
-
 		case 9:
 			try {
 				getSubRow = getRow.findValue("29d7b0266a52eedb3fbd8af632fc7c16#ClienteId");
@@ -460,8 +459,19 @@ public class ClientWS {
 				x.setClienteIdResolved(null);
 			}
 			return x;
-
 		case 10:
+			try {
+				getSubRow = getRow.findValue("29d7b0266a52eedb3fbd8af632fc7c16#OportunidadeId");
+				value = getSubRow.findValue("value");
+				resolved = getSubRow.findValue("resolved");
+				x.set_32fc7c16OportunidadeIdValue(value.asText());
+				x.set_32fc7c16OportunidadeIdResolved(resolved.asText());
+				System.out.println(resolved.asText());
+			} catch (NullPointerException e) {
+				x.set_32fc7c16OportunidadeIdResolved(null);
+			}
+			return x;
+		case 11:
 			try {
 				getSubRow = getRow.findValue("PedidoId");
 				value = getSubRow.findValue("value");
@@ -472,8 +482,18 @@ public class ClientWS {
 				x.setPedidoIdResolved(null);
 			}
 			return x;
-
-		case 11:
+		case 12:
+			try {
+				getSubRow = getRow.findValue("29d7b0266a52eedb3fbd8af632fc7c16#MotivoFechamentoId");
+				value = getSubRow.findValue("value");
+				resolved = getSubRow.findValue("resolved");
+				x.set_32fc7c16MotivoFechamentoIdValue(value.asText());
+				x.set_32fc7c16MotivoFechamentoIdResolved(resolved.asText());
+			} catch (NullPointerException e) {
+				x.setEnderecoPrincipalResolved(null);
+			}
+			return x;
+		case 13:
 			try {
 				getSubRow = getRow.findValue("579e2d75a12f6766438b7350f27500ee#EnderecoPrincipal");
 				value = getSubRow.findValue("value");
@@ -484,8 +504,7 @@ public class ClientWS {
 				x.setEnderecoPrincipalResolved(null);
 			}
 			return x;
-
-		case 12:
+		case 14:
 			try {
 				getSubRow = getRow.findValue("579e2d75a12f6766438b7350f27500ee#CEPPrincipal");
 				value = getSubRow.findValue("value");
@@ -497,7 +516,7 @@ public class ClientWS {
 			}
 			return x;
 
-		case 13:
+		case 15:
 			try {
 				getSubRow = getRow.findValue("579e2d75a12f6766438b7350f27500ee#NomRazaoSocial");
 				value = getSubRow.findValue("value");
@@ -509,7 +528,7 @@ public class ClientWS {
 			}
 			return x;
 
-		case 14:
+		case 16:
 			try {
 				getSubRow = getRow.findValue("29d7b0266a52eedb3fbd8af632fc7c16#TipoContratoId");
 				value = getSubRow.findValue("value");
@@ -521,7 +540,7 @@ public class ClientWS {
 			}
 			return x;
 
-		case 15:
+		case 17:
 			try {
 				getSubRow = getRow.findValue("29d7b0266a52eedb3fbd8af632fc7c16#Descricao");
 				value = getSubRow.findValue("value");
@@ -533,7 +552,7 @@ public class ClientWS {
 			}
 			return x;
 
-		case 16:
+		case 18:
 			try {
 				getSubRow = getRow.findValue("579e2d75a12f6766438b7350f27500ee#NumeroPrincipal");
 				value = getSubRow.findValue("value");
@@ -545,7 +564,7 @@ public class ClientWS {
 			}
 			return x;
 
-		case 17:
+		case 19:
 			try {
 				getSubRow = getRow.findValue("579e2d75a12f6766438b7350f27500ee#ParceiroId");
 				value = getSubRow.findValue("value");
@@ -557,7 +576,7 @@ public class ClientWS {
 			}
 			return x;
 
-		case 18:
+		case 20:
 			try {
 				getSubRow = getRow.findValue("579e2d75a12f6766438b7350f27500ee#UFPrincipalId");
 				value = getSubRow.findValue("value");
@@ -568,8 +587,18 @@ public class ClientWS {
 				x.setUfPrincipalIdResolved(null);
 			}
 			return x;
-
-		case 19:
+		case 21:
+			try {
+				getSubRow = getRow.findValue("x1_Email");
+				value = getSubRow.findValue("value");
+				resolved = getSubRow.findValue("resolved");
+				x.setX1_EmailValue(value.asText());
+				x.setX1_EmailResolved(resolved.asText());
+			} catch (NullPointerException e) {
+				x.setX1_EmailResolved(null);
+			}
+			return x;
+		case 22:
 			try {
 				getSubRow = getRow.findValue("x1_TelefoneTecnico");
 				value = getSubRow.findValue("value");
@@ -581,7 +610,7 @@ public class ClientWS {
 			}
 			return x;
 
-		case 20:
+		case 23:
 			try {
 				getSubRow = getRow.findValue("ProdutoId");
 				value = getSubRow.findValue("value");
@@ -593,7 +622,7 @@ public class ClientWS {
 			}
 			return x;
 
-		case 21:
+		case 24:
 			try {
 				getSubRow = getRow.findValue("29d7b0266a52eedb3fbd8af632fc7c16#StatusPedido");
 				value = getSubRow.findValue("value");
@@ -607,7 +636,7 @@ public class ClientWS {
 
 			return x;
 
-		case 22:
+		case 26:
 			try {
 				getSubRow = getRow.findValue("579e2d75a12f6766438b7350f27500ee#BairroPrincipal");
 				value = getSubRow.findValue("value");
@@ -619,7 +648,7 @@ public class ClientWS {
 			}
 			return x;
 
-		case 23:
+		case 25:
 			try {
 				getSubRow = getRow.findValue("x991_Id");
 				value = getSubRow.findValue("value");
@@ -631,7 +660,7 @@ public class ClientWS {
 			}
 			return x;
 
-		case 24:
+		case 27:
 			try {
 				getSubRow = getRow.findValue("_g.canUpdate");
 				resolved = getSubRow;
@@ -640,8 +669,30 @@ public class ClientWS {
 				x.set_g_canUpdateResolved(null);
 			}
 			return x;
-
-		case 25:
+		
+		case 28:
+			try {
+				getSubRow = getRow.findValue("x1_Observacao");
+				value = getSubRow.findValue("value");
+				resolved = getSubRow.findValue("resolved");
+				x.setX1_ObservacaoValue(value.asText());
+				x.setX1_ObservacaoResolved(resolved.asText());
+			} catch (NullPointerException e) {
+				x.setX1_ObservacaoResolved(null);
+			}
+			return x;
+		case 29:
+			try{
+				getSubRow = getRow.findValue("x1_GerenteProjetoTelefone");
+				value = getSubRow.findValue("value");
+				resolved = getSubRow.findValue("resolved");
+				x.setX1_GerenteProjetoTelefoneValue(value.asText());
+				x.setX1_GerenteProjetoTelefoneResolved(resolved.asText());
+			} catch(NullPointerException e){
+				x.setX1_GerenteProjetoTelefoneResolved(null);
+			}
+			return x;
+		case 30:
 			try {
 				getSubRow = getRow.findValue("x1_GerenteProjetoEmail");
 				value = getSubRow.findValue("value");
@@ -653,7 +704,7 @@ public class ClientWS {
 			}
 			return x;
 
-		case 26:
+		case 31:
 			try {
 				getSubRow = getRow.findValue("CompanyId");
 				value = getSubRow.findValue("value");
@@ -665,7 +716,7 @@ public class ClientWS {
 			}
 			return x;
 
-		case 27:
+		case 32:
 			try {
 				getSubRow = getRow.findValue("Id");
 				value = getSubRow.findValue("value");
@@ -677,7 +728,7 @@ public class ClientWS {
 			}
 			return x;
 
-		case 28:
+		case 33:
 			try {
 				getSubRow = getRow.findValue("x1_ContatoTecnicoId");
 				resolved = getSubRow.findValue("resolved");
@@ -686,8 +737,18 @@ public class ClientWS {
 				x.setX1_ContatoTecnicoIdResolved(null);
 			}
 			return x;
-
-		case 29:
+		case 34:
+			try {
+				getSubRow = getRow.findValue("x1_OpportunidID");
+				value = getRow.findParent("value");
+				resolved = getSubRow.findValue("resolved");
+				x.setX1_OpportunidIDValue(value.asText());
+				x.setX1_OpportunidIDResolved(resolved.asText());
+			} catch (NullPointerException e) {
+				x.setX1_OpportunidIDResolved(null);
+			}
+			return x;
+		case 35:
 			try {
 				getSubRow = getRow.findValue("x1_GerenteProjetoId");
 				resolved = getSubRow.findValue("value");
@@ -697,7 +758,7 @@ public class ClientWS {
 			}
 			return x;
 
-		case 30:
+		case 36:
 			try {
 				getSubRow = getRow.findValue("29d7b0266a52eedb3fbd8af632fc7c16#CompanyId");
 				value = getSubRow.findValue("value");
@@ -709,7 +770,7 @@ public class ClientWS {
 			}
 			return x;
 
-		case 31:
+		case 37:
 			try {
 				getSubRow = getRow.findValue("Quantidade");
 				value = getSubRow.findValue("value");
@@ -721,7 +782,7 @@ public class ClientWS {
 			}
 			return x;
 
-		case 32:
+		case 38:
 			try {
 				getSubRow = getRow.findValue("_g.canDelete");
 				resolved = getSubRow;
@@ -731,7 +792,7 @@ public class ClientWS {
 			}
 			return x;
 
-		case 33:
+		case 39:
 			try {
 				getSubRow = getRow.findValue("579e2d75a12f6766438b7350f27500ee#PaisPrincipalId");
 				value = getSubRow.findValue("value");
@@ -743,7 +804,7 @@ public class ClientWS {
 			}
 			return x;
 
-		case 34:
+		case 40:
 			try {
 				getSubRow = getRow.findValue("BranchId");
 				value = getSubRow.findValue("value");
@@ -755,7 +816,7 @@ public class ClientWS {
 			}
 			return x;
 
-		case 35:
+		case 41:
 			try {
 				getSubRow = getRow.findValue("579e2d75a12f6766438b7350f27500ee#EmpresaId");
 				value = getSubRow.findValue("value");
@@ -767,7 +828,7 @@ public class ClientWS {
 			}
 			return x;
 
-		case 36:
+		case 42:
 			try {
 				getSubRow = getRow.findValue("x1_EmailTecnico");
 				value = getSubRow.findValue("value");
@@ -779,7 +840,7 @@ public class ClientWS {
 			}
 			return x;
 
-		case 37:
+		case 43:
 			try {
 				getSubRow = getRow.findValue("x1_Dominio");
 				value = getSubRow.findValue("value");
@@ -790,10 +851,20 @@ public class ClientWS {
 				x.setX1_DominioResolved(null);
 			}
 			return x;
+		case 44:
+			try {
+				getSubRow = getRow.findValue("x1_ClientID");
+				value = getSubRow.findValue("value");
+				resolved = getSubRow.findValue("resolved");
+				x.setX1_ClientIDValue(value.asText());
+				x.setX1_ClientIDResolved(resolved.asText());
+			} catch (NullPointerException e) {
+				x.setX1_ClientIDResolved(null);
+			}
+			return x;
 
 		}
 		return null;
-
 	}
 
 	private static String statusDefine(int status) {
@@ -855,12 +926,12 @@ public class ClientWS {
 			while (row.get(i) != null) {
 				getRow = row.get(i);
 				PedidosPluneDTO x = new PedidosPluneDTO();
-				for (int j = 1; j < 38; j++) {
+				for (int j = 1; j < 45; j++) {
 					x = getField(j, x, getRow);
 					x.setSendingStatus(StatusEnum.NAOENVIADO.toString());
 				}
 
-				String k = PluneDAO.getInstance().persist(x);
+				String k = PluneDAO.getInstance().persistNull(x);
 
 				if (k == null) {
 					log.log(Level.WARN, "Pedido de ID : " + x.get_32fc7c16_IdResolved() + " não persistido");

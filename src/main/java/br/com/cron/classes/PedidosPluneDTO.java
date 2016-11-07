@@ -18,7 +18,43 @@ public class PedidosPluneDTO implements Serializable {
 	@GeneratedValue(strategy=GenerationType.AUTO)
 	@Column(name="ID", unique=true, nullable=false)
 	private Long id;
+	
+	@Column(name="x1_EmailValue", length=500)
+	private String x1_EmailValue;
+	
+	@Column(name="x1_EmailResolved", length=500)
+	private String x1_EmailResolved;
+	
+	@Column(name="_32fc7c16OportunidadeIdValue", length=500)
+	private String _32fc7c16OportunidadeIdValue;
+	
+	@Column(name="_32fc7c16OportunidadeIdResolved", length=500)
+	private String _32fc7c16OportunidadeIdResolved;
+	
+	@Column(name="_32fc7c16MotivoFechamentoIdValue", length=500)
+	private String _32fc7c16MotivoFechamentoIdValue;
 
+	@Column(name="_32fc7c16MotivoFechamentoIdResolved", length=500)
+	private String _32fc7c16MotivoFechamentoIdResolved;
+	
+	@Column(name="x1_ObservacaoValue", length=5000)
+	private String x1_ObservacaoValue;
+	
+	@Column(name="x1_ObservacaoResolved", length=5000)
+	private String x1_ObservacaoResolved;
+	
+	@Column(name="x1_OpportunidIDValue", length=500)
+	private String x1_OpportunidIDValue;
+	
+	@Column(name="x1_OpportunidIDResolved", length=500)
+	private String x1_OpportunidIDResolved;
+	
+	@Column(name="x1_ClientIDValue", length=255)
+	private String x1_ClientIDValue;
+	
+	@Column(name="x1_ClientIDResolved", length=255)
+	private String x1_ClientIDResolved;
+	
 	@Column(name="_g_canDelete", length=255)
 	private String _g_canDelete;
 
@@ -811,30 +847,142 @@ public class PedidosPluneDTO implements Serializable {
 		this.x991_IdValue = x991_IdValue;
 	}
 
-	public PedidosPluneDTO(Long id, String _g_canDelete, String _g_canUpdateResolved, String _2fc7c16_BranchIdResolved,
-			String _2fc7c16_BranchIdValue, String _32fc7c16_CompanyIdResolved, String _32fc7c16_CompanyIdValue,
-			String _32fc7c16_IdResolved, String _32fc7c16_IdValue, String bairroPrincipalResolved,
-			String bairroPrincipalValue, String branchIdResolved, String branchIdValue, String cepPrincipalResolved,
-			String cepPrincipalValue, String cidadePrincipalIdResolved, String cidadePrincipalIdValue,
-			String clienteIdResolved, String clienteIdValue, String companyIdResolved, String companyIdValue,
-			String complementoPrincipalResolved, String complementoPrincipalValue, String descricaoResolved,
-			String descricaoValue, String empresaIdResolved, String empresaIdValue, String enderecoPrincipalResolved,
-			String enderecoPrincipalValue, String idResolved, String idValue, String nomRazaoSocialResolved,
-			String nomRazaoSocialValue, String numeroPrincipalResolved, String numeroPrincipalValue,
-			String paisPrincipalIdResolved, String paisPrincipalIdValue, String parceiroIdResolved,
-			String parceiroIdValue, String pedidoIdResolved, String pedidoIdValue, String produtoIdResolved,
-			String produtoIdValue, String quantidadeResolved, String quantidadeValue, String representanteIdResolved,
-			String representanteIdValue, String statusPedidoResolved, String statusPedidoValue,
-			String tipoContratoIdResolved, String tipoContratoIdValue, String ufPrincipalIdResolved,
-			String ufPrincipalIdValue, String x1_ContatoTecnicoIdResolved, String x1_DocumentoResolved,
-			String x1_DocumentoValue, String x1_DominioResolved, String x1_DominioValue, String x1_EmailTecnicoResolved,
-			String x1_EmailTecnicoValue, String x1_GerenteProjetoEmailResolved, String x1_GerenteProjetoEmailValue,
-			String x1_GerenteProjetoIdResolved, String x1_GerenteProjetoTelefoneResolved,
-			String x1_GerenteProjetoTelefoneValue, String x1_NivelAcompanhamentoResolved,
-			String x1_NivelAcompanhamentoValue, String x1_TelefoneTecnicoResolved, String x1_TelefoneTecnicoValue,
-			String x991_IdResolved, String x991_IdValue, String SendingStatus) {
-		super();
+	public String get_32fc7c16OportunidadeIdValue() {
+		return _32fc7c16OportunidadeIdValue;
+	}
+
+	public void set_32fc7c16OportunidadeIdValue(String _32fc7c16OportunidadeIdValue) {
+		this._32fc7c16OportunidadeIdValue = _32fc7c16OportunidadeIdValue;
+	}
+
+	public String get_32fc7c16OportunidadeIdResolved() {
+		return _32fc7c16OportunidadeIdResolved;
+	}
+
+	public void set_32fc7c16OportunidadeIdResolved(String _32fc7c16OportunidadeIdResolved) {
+		this._32fc7c16OportunidadeIdResolved = _32fc7c16OportunidadeIdResolved;
+	}
+
+	public String get_32fc7c16MotivoFechamentoIdValue() {
+		return _32fc7c16MotivoFechamentoIdValue;
+	}
+
+	public void set_32fc7c16MotivoFechamentoIdValue(String _32fc7c16MotivoFechamentoIdValue) {
+		this._32fc7c16MotivoFechamentoIdValue = _32fc7c16MotivoFechamentoIdValue;
+	}
+
+	public String get_32fc7c16MotivoFechamentoIdResolved() {
+		return _32fc7c16MotivoFechamentoIdResolved;
+	}
+
+	public void set_32fc7c16MotivoFechamentoIdResolved(String _32fc7c16MotivoFechamentoIdResolved) {
+		this._32fc7c16MotivoFechamentoIdResolved = _32fc7c16MotivoFechamentoIdResolved;
+	}
+
+	public String getX1_ObservacaoValue() {
+		return x1_ObservacaoValue;
+	}
+
+	public void setX1_ObservacaoValue(String x1_ObservacaoValue) {
+		this.x1_ObservacaoValue = x1_ObservacaoValue;
+	}
+
+	public String getX1_ObservacaoResolved() {
+		return x1_ObservacaoResolved;
+	}
+
+	public void setX1_ObservacaoResolved(String x1_ObservacaoResolved) {
+		this.x1_ObservacaoResolved = x1_ObservacaoResolved;
+	}
+
+	public String getX1_OpportunidIDValue() {
+		return x1_OpportunidIDValue;
+	}
+
+	public void setX1_OpportunidIDValue(String x1_OpportunidIDValue) {
+		this.x1_OpportunidIDValue = x1_OpportunidIDValue;
+	}
+
+	public String getX1_OpportunidIDResolved() {
+		return x1_OpportunidIDResolved;
+	}
+
+	public void setX1_OpportunidIDResolved(String x1_OpportunidIDResolved) {
+		this.x1_OpportunidIDResolved = x1_OpportunidIDResolved;
+	}
+
+	public String getX1_ClientIDValue() {
+		return x1_ClientIDValue;
+	}
+
+	public void setX1_ClientIDValue(String x1_ClientIDValue) {
+		this.x1_ClientIDValue = x1_ClientIDValue;
+	}
+
+	public String getX1_ClientIDResolved() {
+		return x1_ClientIDResolved;
+	}
+
+	public void setX1_ClientIDResolved(String x1_ClientIDResolved) {
+		this.x1_ClientIDResolved = x1_ClientIDResolved;
+	}
+
+	public String getX1_EmailValue() {
+		return x1_EmailValue;
+	}
+
+	public void setX1_EmailValue(String x1_EmailValue) {
+		this.x1_EmailValue = x1_EmailValue;
+	}
+
+	public String getX1_EmailResolved() {
+		return x1_EmailResolved;
+	}
+
+	public void setX1_EmailResolved(String x1_EmailResolved) {
+		this.x1_EmailResolved = x1_EmailResolved;
+	}
+
+	public PedidosPluneDTO(Long id, String x1_EmailValue, String x1_EmailResolved, String _32fc7c16OportunidadeIdValue,
+			String _32fc7c16OportunidadeIdResolved, String _32fc7c16MotivoFechamentoIdValue,
+			String _32fc7c16MotivoFechamentoIdResolved, String x1_ObservacaoValue, String x1_ObservacaoResolved,
+			String x1_OpportunidIDValue, String x1_OpportunidIDResolved, String x1_ClientIDValue,
+			String x1_ClientIDResolved, String _g_canDelete, String _g_canUpdateResolved,
+			String _2fc7c16_BranchIdResolved, String _2fc7c16_BranchIdValue, String _32fc7c16_CompanyIdResolved,
+			String _32fc7c16_CompanyIdValue, String _32fc7c16_IdResolved, String _32fc7c16_IdValue,
+			String bairroPrincipalResolved, String bairroPrincipalValue, String branchIdResolved, String branchIdValue,
+			String cepPrincipalResolved, String cepPrincipalValue, String cidadePrincipalIdResolved,
+			String cidadePrincipalIdValue, String clienteIdResolved, String clienteIdValue, String companyIdResolved,
+			String companyIdValue, String complementoPrincipalResolved, String complementoPrincipalValue,
+			String descricaoResolved, String descricaoValue, String empresaIdResolved, String empresaIdValue,
+			String enderecoPrincipalResolved, String enderecoPrincipalValue, String idResolved, String idValue,
+			String nomRazaoSocialResolved, String nomRazaoSocialValue, String numeroPrincipalResolved,
+			String numeroPrincipalValue, String paisPrincipalIdResolved, String paisPrincipalIdValue,
+			String parceiroIdResolved, String parceiroIdValue, String pedidoIdResolved, String pedidoIdValue,
+			String produtoIdResolved, String produtoIdValue, String quantidadeResolved, String quantidadeValue,
+			String representanteIdResolved, String representanteIdValue, String statusPedidoResolved,
+			String statusPedidoValue, String tipoContratoIdResolved, String tipoContratoIdValue,
+			String ufPrincipalIdResolved, String ufPrincipalIdValue, String x1_ContatoTecnicoIdResolved,
+			String x1_DocumentoResolved, String x1_DocumentoValue, String x1_DominioResolved, String x1_DominioValue,
+			String x1_EmailTecnicoResolved, String x1_EmailTecnicoValue, String x1_GerenteProjetoEmailResolved,
+			String x1_GerenteProjetoEmailValue, String x1_GerenteProjetoIdResolved,
+			String x1_GerenteProjetoTelefoneResolved, String x1_GerenteProjetoTelefoneValue,
+			String x1_NivelAcompanhamentoResolved, String x1_NivelAcompanhamentoValue,
+			String x1_TelefoneTecnicoResolved, String x1_TelefoneTecnicoValue, String x991_IdResolved,
+			String x991_IdValue, String sendingStatus) {
 		this.id = id;
+		this.x1_EmailValue = x1_EmailValue;
+		this.x1_EmailResolved = x1_EmailResolved;
+		this._32fc7c16OportunidadeIdValue = _32fc7c16OportunidadeIdValue;
+		this._32fc7c16OportunidadeIdResolved = _32fc7c16OportunidadeIdResolved;
+		this._32fc7c16MotivoFechamentoIdValue = _32fc7c16MotivoFechamentoIdValue;
+		this._32fc7c16MotivoFechamentoIdResolved = _32fc7c16MotivoFechamentoIdResolved;
+		this.x1_ObservacaoValue = x1_ObservacaoValue;
+		this.x1_ObservacaoResolved = x1_ObservacaoResolved;
+		this.x1_OpportunidIDValue = x1_OpportunidIDValue;
+		this.x1_OpportunidIDResolved = x1_OpportunidIDResolved;
+		this.x1_ClientIDValue = x1_ClientIDValue;
+		this.x1_ClientIDResolved = x1_ClientIDResolved;
 		this._g_canDelete = _g_canDelete;
 		this._g_canUpdateResolved = _g_canUpdateResolved;
 		this._2fc7c16_BranchIdResolved = _2fc7c16_BranchIdResolved;
@@ -905,7 +1053,13 @@ public class PedidosPluneDTO implements Serializable {
 		this.x1_TelefoneTecnicoValue = x1_TelefoneTecnicoValue;
 		this.x991_IdResolved = x991_IdResolved;
 		this.x991_IdValue = x991_IdValue;
-		this.SendingStatus = SendingStatus;
+		SendingStatus = sendingStatus;
 	}
 
-}
+	
+	}
+
+	
+
+	
+

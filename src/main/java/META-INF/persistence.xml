@@ -15,7 +15,8 @@
 		<properties>
 			<property name="hibernate.dialect" value="org.hibernate.dialect.PostgreSQLDialect" />
 			<property name="hibernate.connection.driver_class" value="org.postgresql.Driver" />
-			<property name="hibernate.connection.url" value="jdbc:postgresql://hmg.geoportal3d.com.br:5432/profarma_tst" />
+		<!--<property name="hibernate.connection.url" value="jdbc:postgresql://hmg.geoportal3d.com.br:5432/profarma_tst" /> -->
+			<property name="hibernate.connection.url" value="jdbc:postgresql://localhost:5432/Cron"/>
 			<property name="hibernate.connection.username" value="profarma" />
 			<property name="hibernate.connection.password" value="profarma" />
 			<property name="hibernate.show_sql" value="false" />
