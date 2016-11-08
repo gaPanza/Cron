@@ -1,5 +1,7 @@
 package br.com.cron.util;
-
+/*
+ * Class by Gabriel Panza 08/11
+ */
 import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Calendar;

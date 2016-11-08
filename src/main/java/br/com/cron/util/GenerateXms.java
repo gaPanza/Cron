@@ -1,5 +1,7 @@
 package br.com.cron.util;
-
+/*
+ * Class by Gabriel Panza 08/11
+ */
 import java.io.*;
 import java.util.List;
 import org.apache.poi.hssf.usermodel.HSSFSheet;

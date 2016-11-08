@@ -1,5 +1,7 @@
 package br.com.cron.services;
-
+/*
+ * Class by Gabriel Panza 08/11
+ */
 import br.com.cron.resources.Tarefa;
 import br.com.cron.util.JavaMail;
 
@@ -20,11 +22,11 @@ public class Agendador implements Runnable {
 	}
 
 	public void run() {
-		System.out.println("RUN");
+		System.out.println("Atenção> Tarefa em andamento.");
 
 		if (type) {
 			try {
-				br.com.cron.classes.ClientWS.initialize();
+				br.com.cron.plune.Services.ClientWS.initialize();
 			} catch (Exception e) {
 				System.out.println("Email não enviado");
 				e.printStackTrace();

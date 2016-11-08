@@ -1,5 +1,7 @@
 package br.com.cron.util;
-
+/*
+ * Class by Gabriel Panza 08/11
+ */
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.nio.file.Files;

@@ -5,7 +5,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import br.com.cron.resources.MyteamsCustomFieldQuery;
-
+/*
+ * Class by Gabriel Panza 08/11
+ */
 public class ProfarmaDAO {
 	private static ProfarmaDAO instance;
 	protected static EntityManager entityManager;

@@ -1,5 +1,7 @@
 package br.com.cron.resources;
-
+/*
+ * Class by Gabriel Panza 08/11
+ */
 import java.io.Serializable;
 import javax.persistence.*;
 

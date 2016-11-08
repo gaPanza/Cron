@@ -1,5 +1,7 @@
 package br.com.cron.util;
-
+/*
+ * Class by Gabriel Panza 08/11
+ */
 import java.util.Scanner;
 
 import br.com.cron.DAO.TarefaDAO;

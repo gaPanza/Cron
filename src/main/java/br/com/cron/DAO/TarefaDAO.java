@@ -6,10 +6,12 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 
-import br.com.cron.resources.Emailspedido;
+import br.com.cron.plune.Entity.Emailspedido;
 import br.com.cron.resources.Tarefa;
 import br.com.cron.resources.Usuario;
-
+/*
+ * Class by Gabriel Panza 08/11
+ */
 public class TarefaDAO {
 	private static TarefaDAO instance;
 	protected static EntityManager entityManager;

@@ -1,5 +1,7 @@
 package br.com.cron.util;
-
+/*
+ * Class by Gabriel Panza 08/11
+ */
 import java.io.File;
 import java.io.IOException;
 
@@ -27,8 +29,6 @@ import javax.mail.internet.MimeMultipart;
 import br.com.cron.DAO.TarefaDAO;
 import br.com.cron.resources.Tarefa;
 
-//Pendencias
-//Checkar e fixar os protocolos de segurança do google ou habilitar o acesso de apps menos seguros.
 
 public class JavaMail {
 	public void postEmail(long id) throws MessagingException, URISyntaxException, IOException {
@@ -93,7 +93,7 @@ public class JavaMail {
 			Transport.send(message);
 
 			System.out.println("Email enviado com sucesso!");
-			br.com.cron.controller.Builder.main(null);
+			br.com.cron.Controller.Builder.main(null);
 
 		} catch (MessagingException e) {
 			System.out.println("Email não enviado.");
