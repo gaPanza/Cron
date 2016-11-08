@@ -1,24 +1,33 @@
-package br.com.cron.controller;
+package br.com.cron.Controller;
 
 import java.io.IOException;
 import java.util.*;
 import br.com.cron.DAO.TarefaDAO;
-import br.com.cron.classes.PedidosPluneDTO;
-import br.com.cron.classes.PluneDAO;
-import br.com.cron.resources.Emailspedido;
+import br.com.cron.plune.DAO.PluneDAO;
+import br.com.cron.plune.Entity.Emailspedido;
+import br.com.cron.plune.Entity.PedidosPlune;
+import br.com.cron.plune.Services.ClientWS;
 import br.com.cron.resources.Tarefa;
 import br.com.cron.services.Agendador;
 import br.com.cron.util.Initial;
 import br.com.cron.util.MenuUtil;
 import it.sauronsoftware.cron4j.Scheduler;
-
+/*
+ * IPNET CRON versão 1.0 as in 08/11/16
+ * JAVA version 1.7
+ * JPA 2.1
+ * PostgreSQL connection Default
+ * 
+ * Classe by Gabriel Panza 08/11
+ * 
+ */
 public class Builder {
 	static List<Tarefa> tarefaList = new ArrayList<Tarefa>();
 	static Scanner scanner = new Scanner(System.in);
 	static List<Scheduler> schedulerList = new ArrayList<Scheduler>();
-
+	
 	public static void main(String[] args) {
-		// schedule();
+		schedule();
 		TarefaDAO.getInstance();
 		try {
 			int iterator = 0;
@@ -108,8 +117,7 @@ public class Builder {
 		scanner.nextLine();
 	}
 
-	public static void modificar() { // Não funcional.(necessário esforço de
-										// 2hs)
+	public static void modificar() { // Não funcional.(necessário esforço para arrumar)
 		// consultar();
 		// System.out.println("Digite a id da tarefa a ser modificada.");
 		// int option = 0;
@@ -206,8 +214,8 @@ public class Builder {
 
 	public static void menuPlune() {
 		int st = 1;
-		while (st != 4) {
-			st = 4;
+		while (st != 5) {
+			st = 5;
 			System.out.println("\n_____________________________________________________________________________\n"
 					+ "|                                                                             |\n"
 					+ "|                                  MENU PLUNE                                 |\n"
@@ -215,7 +223,9 @@ public class Builder {
 			System.out.println("1- Cadastrar Tarefa");
 			System.out.println("2- Deletar   Tarefa");
 			System.out.println("3- Modificar Emails");
-			System.out.println("4- Voltar  ao  CRON");
+			System.out.println("4- Modificar tamanho da View");
+			System.out.println("5- Voltar  ao  CRON");
+			
 
 			st = scanner.nextInt();
 
@@ -247,11 +257,11 @@ public class Builder {
 				TarefaDAO.getInstance().persist(tarefa);
 				schedule();
 
-				ArrayList<PedidosPluneDTO> h = PluneDAO.getInstance().checkDb();
+				ArrayList<PedidosPlune> h = PluneDAO.getInstance().checkDb();
 				if (h.size() == 0) {
 					try {
-						br.com.cron.classes.ClientWS.populateMail();
-						br.com.cron.classes.ClientWS.populatedB(
+						br.com.cron.plune.Services.ClientWS.populateMail();
+						br.com.cron.plune.Services.ClientWS.populatedB(
 								"https://ipnet.plune.com.br/JSON/Venda.PedidoItem/Browse?&_AuthToken=Ultra.Users:100-29-3822329&_Venda.PedidoItem.BrowseSequence=Id,29d7b0266a52eedb3fbd8af632fc7c16%23StatusPedido,29d7b0266a52eedb3fbd8af632fc7c16%23RepresentanteId,29d7b0266a52eedb3fbd8af632fc7c16%23Id,579e2d75a12f6766438b7350f27500ee%23NomRazaoSocial,x1_Dominio,x1_ContatoTecnicoId,x1_EmailTecnico,x1_TelefoneTecnico,x1_GerenteProjetoId,x1_GerenteProjetoEmail,x1_GerenteProjetoTelefone,x1_Email,x1_ClientID,x1_OpportunidID,x1_Observacao,29d7b0266a52eedb3fbd8af632fc7c16%23OportunidadeId,29d7b0266a52eedb3fbd8af632fc7c16%23MotivoFechamentoId,x991_Id,ProdutoId,Quantidade,29d7b0266a52eedb3fbd8af632fc7c16%23TipoContratoId,x1_NivelAcompanhamento,x1_Documento,579e2d75a12f6766438b7350f27500ee%23CEPPrincipal,579e2d75a12f6766438b7350f27500ee%23PaisPrincipalId,579e2d75a12f6766438b7350f27500ee%23UFPrincipalId,579e2d75a12f6766438b7350f27500ee%23CidadePrincipalId,579e2d75a12f6766438b7350f27500ee%23BairroPrincipal,579e2d75a12f6766438b7350f27500ee%23EnderecoPrincipal,579e2d75a12f6766438b7350f27500ee%23NumeroPrincipal,579e2d75a12f6766438b7350f27500ee%23ComplementoPrincipal&_Venda.PedidoItem.BrowseLimit=10000&_Venda.PedidoItem.Order=%22Venda%22.%22PedidoItem%22.%22CompanyId%22&__debug__=1");
 						
 					} catch (IOException e) {
@@ -293,14 +303,22 @@ public class Builder {
 					System.out.println("Digite uma nova lista de emails para o Status" + opt);
 					System.out.println("Ex: gabriel.panza@ipnetsolucoes.com.br,raphael.pinheiro@ipnetsolucoes.com.br");
 					scanner.nextLine();
-					String newList = scanner.nextLine();
+					String newList = scanner.nextLine().trim().toLowerCase();
 
 					Emailspedido newPedido = new Emailspedido(opt.toString(), newList);
 					TarefaDAO.getInstance().modifyEmails(newPedido);
 				}
 				break;
 			case (4):
-				st = 4;
+				System.out.println("Digite o novo tamanho para a view, Atual : "+ClientWS.viewSize);
+				int newSize = scanner.nextInt();
+				if (newSize>99)
+					ClientWS.viewSize = newSize;
+				else
+					System.out.println("Novo tamanho inválido");
+				break;
+			case (5):
+				st = 5;
 				break;
 			default:
 				System.out.println("Opção incorreta, utilize o menu novamente");
